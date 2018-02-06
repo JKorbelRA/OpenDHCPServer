@@ -2125,8 +2125,15 @@ void pvdata(data9 *req, data3 *op)
 				req->hostname[opsize] = 0;
 				req->hostname[64] = 0;
 
-				if (char *ptr = strchr(req->hostname, '.'))
-					*ptr = 0;
+                // Jakub Korbel: Why to disallow this?
+
+                // If the disallowing is desirable, you HAVE TO
+                // adjust the sizes accordingly. This way the 
+                // original size remained, but shorter hostname was
+                // issued leading to completely invalid messages.
+
+				//if (char *ptr = strchr(req->hostname, '.'))
+				//	*ptr = 0;
 
 				opsize = strlen(req->hostname) + 1;
 				memcpy(op->value, req->hostname, opsize);
@@ -3796,8 +3803,13 @@ char *readSection(char* buff, FILE *f)
 		if (*buff == '[')
 			break;
 
-		if ((*buff) >= '0' && (*buff) <= '9' || (*buff) >= 'A' && (*buff) <= 'Z' || (*buff) >= 'a' && (*buff) <= 'z' || ((*buff) && strchr("/\\?*", (*buff))))
-			return buff;
+        if ((*buff) >= '0' && (*buff) <= '9'
+            || (*buff) >= 'A' && (*buff) <= 'Z'
+            || (*buff) >= 'a' && (*buff) <= 'z'
+            || ((*buff) && strchr("/\\?*.-", (*buff))))
+        {
+            return buff;
+        }
 	}
 
 	fclose(f);
