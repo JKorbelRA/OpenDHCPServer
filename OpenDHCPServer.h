@@ -555,6 +555,7 @@ MYWORD myTokenize(char *target, char *source, const char *sep, bool whiteSep);
 data7* findDHCPEntry(char *entry);
 data7 *createCache(data71 *lump);
 MYBYTE addServer(MYDWORD *array, MYBYTE maxServers, MYDWORD ip);
+bool checkIP(data9 *req, data17 *rangeData, MYDWORD ip);
 bool checkMask(MYDWORD mask);
 bool checkRange(data17 *rangeData, char rangeInd);
 bool detectChange();
