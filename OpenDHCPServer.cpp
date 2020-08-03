@@ -1271,7 +1271,7 @@ bool checkIP(data9 *req, data17 *rangeData, MYDWORD ip)
 	data13 *range = &cfig.dhcpRanges[rangeInd];
 	data7 *dhcpEntry = range->dhcpEntry[ind];
 
-	if ((req->dhcpEntry != dhcpEntry && range->expiry[ind] > t) or range->expiry[ind] == INT_MAX)
+	if ((req->dhcpEntry != dhcpEntry && range->expiry[ind] > t) || range->expiry[ind] == INT_MAX)
 		return false;
 
 	if(req->subnetIP)
